@@ -8,6 +8,7 @@ namespace GatewayManagementCore.Entities
 {
     public class PeripheralDevice
     {
+        public Guid Id { get; set; }
         public int UID { get; set; }
         public string Vendor { get; set; }
         public DateTime DateCreated { get; set; }

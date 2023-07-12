@@ -8,6 +8,7 @@ namespace GatewayManagementCore.Entities
 {
     public class Gateway
     {
+        public int Id { get; set; }
         public string SerialNumber { get; set; }
         public string Name { get; set; }
         public string IPAddress { get; set; }
