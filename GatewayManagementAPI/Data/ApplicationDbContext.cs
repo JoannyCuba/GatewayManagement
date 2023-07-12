@@ -28,9 +28,12 @@ namespace GatewayManagementAPI.Data
 
             modelBuilder.Entity<PeripheralDevice>()
                .ToTable("PeripheralDevice");
+            modelBuilder.Entity<AuditTrailManager>()
+               .ToTable("AuditTrailManager");
         }
 
         public DbSet<Gateway> Gateways { get; set; }
         public DbSet<PeripheralDevice> PeripheralDevices { get; set; }
+        public DbSet<AuditTrailManager> AuditTrailManagers { get; set; }
     }
 }

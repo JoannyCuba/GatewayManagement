@@ -2,6 +2,6 @@
 {
     public class PeripheralDevice : GatewayManagementCore.Entities.PeripheralDevice
     {
-        public Gateway Gateway { get; set; }
+        public Gateway? Gateway { get; set; }
     }
 }

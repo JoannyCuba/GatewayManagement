@@ -8,12 +8,12 @@ namespace GatewayManagementCore.Entities
 {
     public class PeripheralDevice
     {
-        public Guid Id { get; set; }
+        public int? Id { get; set; }
         public int UID { get; set; }
-        public string Vendor { get; set; }
+        public string? Vendor { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsOnline { get; set; }
-        public int GatewayId { get; set; }
-
+        public bool IsActive { get; set; }
+        public int? GatewayId { get; set; }
     }
 }
