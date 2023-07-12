@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayManagement.Core", "GatewayManagement.Core\GatewayManagement.Core.csproj", "{ED62C5CA-2C53-474B-856B-0A4250350960}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayManagementCore", "GatewayManagement.Core\GatewayManagementCore.csproj", "{ED62C5CA-2C53-474B-856B-0A4250350960}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayManagementAPI", "GatewayManagementAPI\GatewayManagementAPI.csproj", "{59FE7CDA-84F5-46E2-8C5F-22145E2B5FCC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ED62C5CA-2C53-474B-856B-0A4250350960} = {ED62C5CA-2C53-474B-856B-0A4250350960}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{ED62C5CA-2C53-474B-856B-0A4250350960}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED62C5CA-2C53-474B-856B-0A4250350960}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED62C5CA-2C53-474B-856B-0A4250350960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59FE7CDA-84F5-46E2-8C5F-22145E2B5FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59FE7CDA-84F5-46E2-8C5F-22145E2B5FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59FE7CDA-84F5-46E2-8C5F-22145E2B5FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59FE7CDA-84F5-46E2-8C5F-22145E2B5FCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

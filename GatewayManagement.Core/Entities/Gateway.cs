@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GatewayManagement.Core.Models
+namespace GatewayManagementCore.Entities
 {
     public class Gateway
     {
