@@ -11,6 +11,7 @@ namespace GatewayManagementCore.Interfaces
     {
         public IRepository<Gateway> Gateway { get; set; }
         public IRepository<PeripheralDevice> PeripheralDevice { get; set; }
+        public IRepository<AuditTrailManager> Audit { get; set; }
         public Task Save();
 
     }

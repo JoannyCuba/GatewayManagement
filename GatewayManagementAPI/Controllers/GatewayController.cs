@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Azure;
+using GatewayManagementAPI.Infraestructure;
 using GatewayManagementAPI.Infraestructure.Dtos;
 using GatewayManagementAPI.Utils;
 using GatewayManagementCore.Entities;
@@ -6,6 +8,7 @@ using GatewayManagementCore.Interfaces;
 using GatewayManagementCore.UseCase;
 using log4net;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using static GatewayManagementAPI.Utils.Constants;
 
 namespace GatewayManagementAPI.Controllers
@@ -65,7 +68,15 @@ namespace GatewayManagementAPI.Controllers
             try
             {
                 List<PeripheralDevice> devices = mapper.Map<List<PeripheralDevice>>(gatewayDto.peripheralDevices);
-                await UCGateway.Create(gatewayDto.serialNumber,gatewayDto.name,gatewayDto.ipAddress,true, devices);
+                var response =  await UCGateway.Create(gatewayDto.serialNumber,gatewayDto.name,gatewayDto.ipAddress,true, devices);
+                
+                AuditTrail auditTrail = new(HttpContext, context);
+                await auditTrail.SaveAuditTrail(new AuditTrailManager()
+                {
+                    Action = GatewayManagementCore.Utils.Constants.Events.CreateGateway,
+                    State = GatewayManagementCore.Utils.Constants.AuditTrailState.Completed,
+                    Data = JsonSerializer.Serialize(response)
+                });
                 return new ApiResult() { state = StatusResponse.Ok, data = null };
             }
             catch (Exception e)
@@ -81,7 +92,14 @@ namespace GatewayManagementAPI.Controllers
             try
             {
                 List<PeripheralDevice> devices = mapper.Map<List<PeripheralDevice>>(gatewayDto.peripheralDevices);
-                await UCGateway.Update((int)gatewayDto.id, gatewayDto.serialNumber,gatewayDto.name,gatewayDto.ipAddress,true, devices);
+                var response = await UCGateway.Update((int)gatewayDto.id, gatewayDto.serialNumber,gatewayDto.name,gatewayDto.ipAddress,true, devices);
+                AuditTrail auditTrail = new(HttpContext, context);
+                await auditTrail.SaveAuditTrail(new AuditTrailManager()
+                {
+                    Action = GatewayManagementCore.Utils.Constants.Events.UpdateGateway,
+                    State = GatewayManagementCore.Utils.Constants.AuditTrailState.Completed,
+                    Data = JsonSerializer.Serialize(response)
+                });
                 return new ApiResult() { state = StatusResponse.Ok, data = null };
             }
             catch (Exception e)
@@ -97,6 +115,14 @@ namespace GatewayManagementAPI.Controllers
             try
             {
                 bool response = await UCGateway.Delete(id);
+                var retorned = await UCGateway.GetById(id);
+                AuditTrail auditTrail = new(HttpContext, context);
+                await auditTrail.SaveAuditTrail(new AuditTrailManager()
+                {
+                    Action = GatewayManagementCore.Utils.Constants.Events.DeleteGateway,
+                    State = GatewayManagementCore.Utils.Constants.AuditTrailState.Completed,
+                    Data = JsonSerializer.Serialize(retorned)
+                });
                 return new ApiResult() { state = StatusResponse.Ok, data = null };
             }
             catch (Exception e)

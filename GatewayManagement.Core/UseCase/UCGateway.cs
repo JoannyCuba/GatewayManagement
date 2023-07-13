@@ -23,7 +23,7 @@ namespace GatewayManagementCore.UseCase
                 List<Gateway> gateways = await _unitOfWork.Gateway.FindPaginationAsync(
                 page: page,
                 itemPerPage: itemsPerPage,
-                filter: x => (string.IsNullOrEmpty(filter) || x.Name == filter || x.Id.ToString() == filter) && x.IsActive == true);
+                filter: x => (string.IsNullOrEmpty(filter) || x.Name.ToLower().Contains(filter) || x.Id.ToString() == filter) && x.IsActive == true);
                 _eventHandler.ThrowEvent(Constants.Events.ListGateways, gateways);
                 return gateways;
             }

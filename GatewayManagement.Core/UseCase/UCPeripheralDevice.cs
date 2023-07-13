@@ -58,20 +58,21 @@ namespace GatewayManagementCore.UseCase
                 throw new Exception(e.Message);
             }
         }
-        public async Task<PeripheralDevice> Create(int uid, string vendor, bool isOnline, bool IsActive, int? gatewayId)
+        public async Task<PeripheralDevice> Create(string uid, string vendor, bool isOnline, bool IsActive, int? gatewayId)
         {
             try
             {
                 if (uid == null)
-                    throw new Exception("The field UID cannot be null");
+                   uid = Guid.NewGuid().ToString();
                 if (gatewayId != null)
                 {
                     int elements = await _unitOfWork.PeripheralDevice.CountAsync(x => x.GatewayId == gatewayId);
-                    if (elements > 10)
+                    if (elements >= 10)
                     {
                         throw new Exception("Cannot add a new peripheral device to the selected gateway as it has reached the allowed limit of devices.");
                     }
                 }
+
                 PeripheralDevice device = new()
                 {
                     UID = uid,
@@ -89,21 +90,23 @@ namespace GatewayManagementCore.UseCase
             catch (Exception e)
             {
                 _eventHandler.ThrowEvent(Constants.Events.UnexpectedError, this.GetType().Name, e.Message, e.StackTrace);
-                throw new Exception(Constants.GeneralErrors.UnexpectedError);
+                throw new Exception(e.Message);
             }
         }
 
-        public async Task<PeripheralDevice> Update(int id, int uid, string vendor, bool isOnline, bool IsActive, int? gatewayId)
+        public async Task<PeripheralDevice> Update(int id, string uid, string vendor, bool isOnline, bool IsActive, int? gatewayId)
         {
             try
             {
 
                 if (uid == null)
-                    throw new Exception("The field UID cannot be null");
+                {
+                    uid = Guid.NewGuid().ToString();
+                }
                 if (gatewayId != null)
                 {
                     int elements = await _unitOfWork.PeripheralDevice.CountAsync(x => x.GatewayId == gatewayId);
-                    if (elements > 10)
+                    if (elements >= 10)
                     {
                         throw new Exception("Cannot update the peripheral device to the selected gateway as it has reached the allowed limit of devices.");
                     }
@@ -126,7 +129,7 @@ namespace GatewayManagementCore.UseCase
             catch (Exception e)
             {
                 _eventHandler.ThrowEvent(Constants.Events.UnexpectedError, this.GetType().Name, e.Message, e.StackTrace);
-                throw new Exception(Constants.GeneralErrors.UnexpectedError);
+                throw new Exception(e.Message);
             }
         }
         public async Task<bool> Delete(int id)

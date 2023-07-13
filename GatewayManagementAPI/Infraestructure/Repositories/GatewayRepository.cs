@@ -23,6 +23,7 @@ namespace GatewayManagementAPI.Infraestructure.Repositories
             IQueryable<Models.Gateway> query = dbSet;
 
             query = query.Where(filterApi);
+            query = query.Include(x => x.PeripheralDevices.Where(d => d.IsActive == true)); 
             query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
             var r = await query.ToListAsync();
             return mapper.Map<List<Gateway>>(r);
