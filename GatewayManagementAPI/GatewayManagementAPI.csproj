@@ -28,4 +28,10 @@
     <ProjectReference Include="..\GatewayManagement.Core\GatewayManagementCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="localhost.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
