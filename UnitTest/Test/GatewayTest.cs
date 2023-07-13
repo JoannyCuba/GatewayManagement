@@ -17,12 +17,12 @@ namespace UnitTest.Test
         //empty serial number
         [InlineData("","Gateway 1", "10.10.1.1", true)]
         //empty ip address
-        [InlineData("","Gateway 1", "", true)]
+        [InlineData("4217eaed-2ae3-470b-a116-97e63da99827", "Gateway 1", "", true)]
        //incorrect format Ipv4 ip address
-        [InlineData("","Gateway 1", "352.514.874.5", true)]
+        [InlineData("4217eaed-2ae3-470b-a116-97e63da99827", "Gateway 1", "352.514.874.5", true)]
         public async Task Add_Invalid_Argument(string serial, string? name, string ipAddress, bool IsActive)
         {
-            using (var _unitOfWork = new Infraestructure.UnitOfWork(new ApplicationDbContext()))
+            using (var _unitOfWork = new UnitOfWork(new ApplicationDbContext()))
             {
                 UCGateway uCGateway = new UCGateway(_unitOfWork, new EventHandler());
                 await Assert.ThrowsAnyAsync<Exception>(() => uCGateway.Create(serial, name,ipAddress, IsActive, null));

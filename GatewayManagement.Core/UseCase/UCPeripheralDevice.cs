@@ -26,7 +26,7 @@ namespace GatewayManagementCore.UseCase
                 List<PeripheralDevice> devices = await _unitOfWork.PeripheralDevice.FindPaginationAsync(
                 page: page,
                 itemPerPage: itemsPerPage,
-                filter: x => (string.IsNullOrEmpty(filter) || x.DateCreated.ToString() == filter || x.Id.ToString() == filter) && x.IsActive == true);
+                filter: x => (string.IsNullOrEmpty(filter) || x.DateCreated.ToString() == filter || x.Id.ToString() == filter || x.Vendor.ToLower().Contains(filter)) && x.IsActive == true);
                 _eventHandler.ThrowEvent(Constants.Events.ListPeripheralDevices, devices);
                 return devices;
             }

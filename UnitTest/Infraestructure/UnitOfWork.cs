@@ -22,6 +22,7 @@ namespace UnitTest.Infraestructure
         {
             _context = context;
             Gateway = new GatewayRepository(context);
+            PeripheralDevice = new PeripheralDeviceRepository(context);
         }
         public async Task Save()
         {

@@ -30,7 +30,6 @@ namespace UnitTest.Infraestructure
 
         public DbSet<Gateway> Gateways { get; set; }
         public DbSet<PeripheralDevice> PeripheralDevices { get; set; }
-        public DbSet<AuditTrailManager> AuditTrailManagers { get; set; }
 
     }
 }
